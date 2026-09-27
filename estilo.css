@@ -58,6 +58,15 @@ footer a { margin-right: 16px; }
 .contenedor > *:nth-child(n+6) { animation-delay: 250ms; }
 @keyframes aparecer { to { opacity: 1; transform: none; } }
 
+/* Al imprimir o guardar como PDF: todo visible, sin animación y en colores de papel */
+@media print {
+  .contenedor > * { opacity: 1 !important; transform: none !important; animation: none !important; }
+  html, body { background: #fff !important; color: #111 !important; }
+  p, li, .suave, footer { color: #222 !important; }
+  h2, h1 span, a { color: #8a5a00 !important; }
+  .tarjeta, .aviso { background: #f3f3f3 !important; color: #111 !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .contenedor > * { transform: none; animation: aparecer-suave 200ms ease forwards; }
   @keyframes aparecer-suave { to { opacity: 1; } }
