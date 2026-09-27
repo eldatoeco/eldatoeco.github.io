@@ -1,0 +1,65 @@
+:root {
+  --fondo: #0a1628;
+  --fondo2: #04090f;
+  --panel: #142640;
+  --dorado: #f2b830;
+  --texto: #f0f4fa;
+  --suave: #96a5b9;
+  --panel-hover: #1b3152;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+* { box-sizing: border-box; }
+html { background: var(--fondo2); }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  color: var(--texto);
+  background: linear-gradient(180deg, var(--fondo), var(--fondo2)) fixed;
+  line-height: 1.6;
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+.contenedor { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+header { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+.sello { width: 44px; height: 44px; border-radius: 12px; display: block; }
+.marca { font-weight: 700; letter-spacing: 0.04em; text-decoration: none; color: var(--texto); }
+h1 { font-size: clamp(28px, 6vw, 40px); line-height: 1.15; margin: 0 0 16px; }
+h1 span, a { color: var(--dorado); }
+h2 { font-size: 20px; margin: 32px 0 8px; color: var(--dorado); }
+p, li { color: var(--texto); }
+.suave { color: var(--suave); }
+.tarjetas { display: grid; gap: 12px; margin: 24px 0; }
+.tarjeta {
+  background: var(--panel); border-radius: 16px; padding: 16px 20px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  text-decoration: none; color: var(--texto);
+  transition: transform 160ms var(--ease-out), background-color 200ms ease;
+}
+.tarjeta:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .tarjeta:hover { background-color: var(--panel-hover); }
+}
+.tarjeta strong { font-size: 18px; }
+.aviso { background: var(--panel); border-left: 4px solid var(--dorado); border-radius: 8px; padding: 12px 16px; }
+footer { margin-top: 48px; font-size: 14px; color: var(--suave); }
+footer a { margin-right: 16px; }
+
+/* Entrada escalonada suave: se ve una vez por visita */
+.contenedor > * {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: aparecer 400ms var(--ease-out) forwards;
+}
+.contenedor > *:nth-child(2) { animation-delay: 50ms; }
+.contenedor > *:nth-child(3) { animation-delay: 100ms; }
+.contenedor > *:nth-child(4) { animation-delay: 150ms; }
+.contenedor > *:nth-child(5) { animation-delay: 200ms; }
+.contenedor > *:nth-child(n+6) { animation-delay: 250ms; }
+@keyframes aparecer { to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .contenedor > * { transform: none; animation: aparecer-suave 200ms ease forwards; }
+  @keyframes aparecer-suave { to { opacity: 1; } }
+  .tarjeta:active { transform: none; }
+}
