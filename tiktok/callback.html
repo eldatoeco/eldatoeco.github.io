@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Conectando TikTok — El Dato Económico</title>
+  <link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+  <div class="contenedor">
+    <header><a class="marca" href="../">El Dato Económico</a></header>
+    <h1>Conectando <span>TikTok</span>…</h1>
+    <p id="estado" class="suave">Volviendo a la herramienta de publicación en este computador.</p>
+    <p class="suave">Esta página solo pasa la autorización de TikTok a la herramienta privada del titular
+      (<a href="../privacidad.html">política de privacidad</a>). No guarda nada.</p>
+  </div>
+  <script>
+    // TikTok vuelve aquí con ?code=…&state=…; se reenvía a la herramienta local del titular (solo este computador).
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var estado = document.getElementById("estado");
+      if (q.get("error")) {
+        estado.textContent = "TikTok no autorizó el acceso: " + q.get("error_description") + ". Puedes cerrar esta pestaña.";
+        return;
+      }
+      if (!q.get("code")) {
+        estado.textContent = "No llegó ninguna autorización. Puedes cerrar esta pestaña.";
+        return;
+      }
+      location.replace("http://localhost:8766/tiktok/callback" + location.search);
+    })();
+  </script>
+</body>
+</html>
